@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+<main class="profile">
+  <div class="profile-bg"></div>
+  <section class="container">
+    <aside class="profile-image">
+      <a class="camera" href="#">
+                    <i class="fas fa-camera"></i>
+                </a>
+    </aside>
+    <section class="profile-info">
+      <h1 class="first-name"></h1>
+      <h1 class="second-name"></h1>
+      <h2>ABOUT</h2>
+      <p>
+      𝙇𝙤𝙤𝙠 𝙞𝙣𝙩𝙤 𝙢𝙮 𝙚𝙮𝙚𝙨, 𝙩𝙝𝙖𝙩'𝙨 𝙬𝙝𝙚𝙧𝙚 𝙢𝙮 𝙙𝙚𝙢𝙤𝙣𝙨 𝙝𝙞𝙙𝙚.
+      </p>
+
+      <aside class="social-media-icons">
+        <a href="" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+        <a href="" target="_blank">
+                        <i class="fab fa-codepen"></i>
+                    </a>
+        <a href="" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+        </a>
+        <a href="" target="_blank">
+                        <i class="fab fa-medium"></i>
+                    </a>
+      </aside>
+    </section>
+  </section>
+  <section class="statistics">
+    <button class="icon arrow left"></button>
+    <button class="icon arrow right"></button>
+    <p><strong>29</strong> Followers</p>
+    <p><strong>184</strong> Following</p>
+    <p><strong>6</strong> Likes</p>
+  </section>
+  <button class="icon close"></button>
+</main>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reproductor Neon Custom</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    #reproductor {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      background: rgba(20,20,20,0.9);
+      border-radius: 20px;
+      box-shadow: 0 0 20px #0ff, 0 0 40px #f0f;
+      overflow: hidden;
+      transition: transform 0.5s ease;
+      z-index: 999;
+      padding: 15px;
+    }
+
+    .vinilo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin-right: 15px;
+      cursor: pointer;
+      flex-shrink: 0;
+      background: #111; /* color base mientras no hay imagen */
+      transition: background 0.5s ease; /* transición suave al cambiar portada */
+    }
+
+    .vinilo.playing {
+      animation: girar 3s linear infinite;
+    }
+
+    @keyframes girar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .info {
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .neon-pequeno {
+      font-size: 14px;
+      color: #0ff;
+      text-shadow: 0 0 5px #0ff;
+    }
+
+    .neon-grande {
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 10px #f0f, 0 0 20px #0ff;
+      animation: parpadeo 2s infinite;
+    }
+
+    @keyframes parpadeo {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .controles {
+      margin-top: 10px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn {
+      background: none;
+      border: none;
+      color: #0ff;
+      font-size: 20px;
+      cursor: pointer;
+      text-shadow: 0 0 5px #0ff;
+    }
+
+    .btn:hover {
+      color: #fff;
+    }
+
+    audio { display: none; }
+
+    /* Lista desplegable */
+    #lista {
+      margin-top: 15px;
+      background: rgba(0,0,0,0.8);
+      border-radius: 12px;
+      box-shadow: 0 0 15px #0ff;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    #lista.mostrar {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    #lista ul {
+      list-style: none;
+      margin: 0;
+      padding: 10px;
+    }
+
+    #lista li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      color: #fff;
+      text-shadow: 0 0 5px #0ff;
+    }
+
+    #lista li img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+
+    #lista li:hover {
+      background: rgba(255,255,255,0.1);
+      transform: scale(1.05);
+      color: #f0f;
+    }
+  </style>
+</head>
+<body>
+
+<div id="reproductor">
+  <div style="display:flex;align-items:center;">
+    <div class="vinilo" onclick="togglePlay()"></div>
+    <div class="info">
+      <div class="neon-pequeno" id="artista"></div>
+      <div class="neon-grande" id="titulo"></div>
+      <div class="controles">
+        <button class="btn" onclick="cambiarCancion(-1)">⏮️</button>
+        <button class="btn" onclick="togglePlay()">⏯️</button>
+        <button class="btn" onclick="cambiarCancion(1)">⏭️</button>
+        <button class="btn" onclick="toggleLista()">📂</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista -->
+  <div id="lista">
+    <ul>
+      <li onclick="cambiarCancionDirecto(0)">
+        <img src="https://i.ibb.co/dJLc8VNM/mars-planet-icon-cartoon-style-vector.jpg">
+        <span>kevin kaarl - Vamonos a marte</span>
+      </li>
+      <li onclick="cambiarCancionDirecto(1)">
+        <img src="https://i.ibb.co/sZfF6xY/Captura-de-pantalla-28-1-2026-205126-www-bing-com.jpg">
+        <span>miley cyrus - Angels like you</span>
+      </li>
+      <li onclick="cambiarCancionDirecto(2)">
+        <img src="https://i.ibb.co/8gRzz0FH/Captura-de-pantalla-28-1-2026-214146-www-bing-com.jpg">
+        <span>nightwish - while your lips are still red</span>
+      </li>
+      <li onclick="cambiarCancionDirecto(3)">
+        <img src="https://i.ibb.co/Kz0fW8Qb/Captura-de-pantalla-28-1-2026-214526-www-bing-com.jpg">
+        <span>Amaral - Cuando Suba la Marea</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Canciones -->
+  <audio src="assets/0.mp3" class="cancion active"></audio>
+  <audio src="assets/1.mp3" class="cancion"></audio>
+  <audio src="assets/2.mp3" class="cancion"></audio>
+  <audio src="assets/3.mp3" class="cancion"></audio>
+</div>
+
+<script>
+  let indice = 0;
+  const canciones = document.querySelectorAll('audio');
+  const vinilo = document.querySelector('.vinilo');
+  const titulo = document.getElementById('titulo');
+  const artista = document.getElementById('artista');
+  const lista = document.getElementById('lista');
+
+  const infoCanciones = [
+    {
+      titulo: "Vamonos a marte",
+      artista: "kevin kaarl ",
+      imagen: "https://i.ibb.co/dJLc8VNM/mars-planet-icon-cartoon-style-vector.jpg"
+    },
+    {
+      titulo: "Angels like you",
+      artista: "Miley cyrus",
+      imagen: "https://i.ibb.co/sZfF6xY/Captura-de-pantalla-28-1-2026-205126-www-bing-com.jpg"
+    },
+    {
+      titulo: "While your lips are still red",
+      artista: "nightwish",
+      imagen: "https://i.ibb.co/8gRzz0FH/Captura-de-pantalla-28-1-2026-214146-www-bing-com.jpg"
+    },
+    {
+      titulo: "Cuando Suba la Marea",
+      artista: "Amaral",
+      imagen: "https://i.ibb.co/Kz0fW8Qb/Captura-de-pantalla-28-1-2026-214526-www-bing-com.jpg"
+    }
+  ];
+
+  function actualizarInfo() {
+    titulo.textContent = infoCanciones[indice].titulo;
+    artista.textContent = infoCanciones[indice].artista;
+    vinilo.style.background = `url('${infoCanciones[indice].imagen}') center/cover no-repeat`;
+  }
+
+  function cambiarCancion(direccion) {
+    canciones[indice].pause();
+    canciones[indice].currentTime = 0;
+    vinilo.classList.remove('playing');
+
+    indice = (indice + direccion + canciones.length) % canciones.length;
+
+    actualizarInfo();
+    canciones[indice].play();
+    vinilo.classList.add('playing');
+  }
+
+  function cambiarCancionDirecto(i) {
+    canciones[indice].pause();
+    canciones[indice].currentTime = 0;
+    vinilo.classList.remove('playing');
+
+    indice = i;
+    actualizarInfo();
+    canciones[indice].play();
+    vinilo.classList.add('playing');
+  }
+
+  function togglePlay() {
+    const audio = canciones[indice];
+    if (audio.paused) {
+      audio.play();
+      vinilo.classList.add('playing');
+    } else {
+      audio.pause();
+      vinilo.classList.remove('playing');
+    }
+  }
+
+  function toggleLista() {
+    lista.classList.toggle('mostrar');
+  }
+
+  // Inicializar con la primera canción
+  actualizarInfo();
+</script>
+
+</body>
+</html>
+*
+    
+  </body>
+  
+</html>
